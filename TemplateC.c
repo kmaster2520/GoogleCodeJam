@@ -52,7 +52,7 @@ int getInt(FILE* fp) {
     return i;
 }
 int intcompar(const void* a, const void* b) {
-    int x = (int*) a;
-    int y = (int*) b;
+    const int* x = (const int*) a;
+    const int* y = (const int*) b;
     return *x - *y;
 }

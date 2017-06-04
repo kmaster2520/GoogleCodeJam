@@ -21,6 +21,32 @@ void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, c
 base = addr of first element
  
 */
+
+double carea(int r) { // area of circle
+    return 3.14159265358979323846 * r * r;
+}
+
+double harea(int r, int h) { // marginal area
+    return 3.14159265358979323846 * 2 * r * h;
+}
+
+// sort descending
+void sortDual(int* a, int* b, int len) {
+    for (int i = 0; i < len; i++) {
+        for (int j = i; j > 0; j--) {
+            if (a[j] > a[j-1]) {
+                int temp = a[j];
+                a[j] = a[j-1];
+                a[j-1] = temp;
+                temp = b[j];
+                b[j] = b[j-1];
+                b[j-1] = temp;
+            }
+        }
+    }
+}
+
+
 // Ample Syrup
 int main() {
     
@@ -30,9 +56,34 @@ int main() {
     int T = getInt(fp);
 
     for (int t = 1; t <= T; t++) {
+        int n = getInt(fp);
+        int k = getInt(fp);
+        int r[n], h[n];
+        for (int i = 0; i < n; i++) {
+            r[i] = getInt(fp);
+            h[i] = getInt(fp);
+        }
+        //
+        sortDual(r, h, n);
+        double ans = 0.0;
+        int li = n-1; //limit index
+        for (int i = k-1; i >= 0; i--) {
+            double bestArea = 0.0;
+            double bestli = i-1;
+            for (int j = i; j <= li; j++) {
+                double area = harea(r[j], h[j]);
+                if (bestArea < area) {
+                    bestli = j-1;
+                    bestArea = area;
+                }
+            }
+            ans += bestArea;
+            li = bestli;
+        }
+        ans += carea(r[li+1]);
 
 
-        fprintf(op, "Case #%d: %d\n", t, ans);
+        fprintf(op, "Case #%d: %.9f\n", t, ans);
     }
     
     fclose(fp);
@@ -52,7 +103,7 @@ int getInt(FILE* fp) {
     return i;
 }
 int intcompar(const void* a, const void* b) {
-    int x = (int*) a;
-    int y = (int*) b;
+    const int* x = (const int*) a;
+    const int* y = (const int*) b;
     return *x - *y;
 }

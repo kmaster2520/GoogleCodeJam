@@ -28,6 +28,8 @@ int main() {
     printf("%lu\n", sizeof(a));
     printf("%lu\n", sizeof(sample_t));
 
+    printf("%.3f\n", 3.14159265);
+
 }
 
 int getInt(FILE* fp) {
