@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 //#include <string.h>
-//#include <math.h>
+//#include <math.h>    
 
 int getInt(FILE*);
 int intcompar(const void*, const void*);
@@ -21,7 +21,7 @@ void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, c
 base = addr of first element
  
 */
-
+// Ample Syrup
 int main() {
     
     FILE* fp = fopen("infile.txt", "r");
